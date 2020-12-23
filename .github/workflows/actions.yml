@@ -1,5 +1,5 @@
 name: linux-build-dist
-on: [push, pull-request]
+on: [push, pull_request]
 jobs:
   build-dist:
     runs-on: ubuntu-latest
