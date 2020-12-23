@@ -5,7 +5,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          sudo apt-get install -y build-essential curl g++ git wget libssl-dev libz-dev
-          wget https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz
-          tar zxvf perl-5.32.0.tar.gz
+        shell: bash
+        run: |
+          #sudo apt-get install -y build-essential curl g++ git wget libssl-dev libz-dev
+          #wget https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz
+          #tar zxvf perl-5.32.0.tar.gz
+          echo $PWD
+          echo $SHELL
+          echo $PATH
