@@ -9,8 +9,12 @@ jobs:
         shell: bash
         run: |
           #sudo apt-get install -y build-essential curl g++ git wget libssl-dev libz-dev
-          #wget https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz
-          #tar zxvf perl-5.32.0.tar.gz
-          echo $PWD
-          echo $SHELL
-          echo $PATH
+          wget https://www.cpan.org/src/5.0/perl-5.32.0.tar.gz
+          tar zxvf perl-5.32.0.tar.gz
+          #PWD=/home/runner/work/math--gsl--gha/math--gsl--gha
+          cd perl-5.32.0
+          sh Configure -des -Dprefix=$GITHUB_WORKSPACE/perl -Dman1dir=none -Dman3dir=none
+          make
+          make install
+          echo $GITHUB_WORKSPACE
+          ls $GITHUB_WORKSPACE/perl
