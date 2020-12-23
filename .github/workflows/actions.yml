@@ -16,5 +16,6 @@ jobs:
           sh Configure -des -Dprefix=$GITHUB_WORKSPACE/perl -Dman1dir=none -Dman3dir=none
           make
           make install
-          echo $GITHUB_WORKSPACE
-          ls $GITHUB_WORKSPACE/perl
+          perl --version
+          export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
+          perl --version
