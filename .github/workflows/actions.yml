@@ -2,11 +2,10 @@ name: linux-build-dist
 on: [push, pull_request]
 jobs:
   build-dist:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: prepare
-        shell: bash
+      - name: install perl
         run: |
           # NOTE: The following packages are already installed in "ubuntu-latest"
           #sudo apt-get install -y build-essential curl g++ git wget libssl-dev libz-dev
@@ -14,7 +13,11 @@ jobs:
           # NOTE: perl version 5.26.1 is already installed (on Ubuntu 20.04),
           #   but we would like to not mess with that, so we install a custom perl.
           ./.github/scripts/install_perl.sh
-          cd ..
+      - name: show perl info
+        run: |
           export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
           perl --version
           uname -a
+      - name: install gsl
+        run: |
+          ./.github/scripts/install_gsl.sh
