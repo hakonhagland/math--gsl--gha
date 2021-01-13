@@ -13,7 +13,7 @@ jobs:
           # NOTE: PWD=/home/runner/work/math--gsl--gha/math--gsl--gha
           # NOTE: perl version 5.26.1 is already installed (on Ubuntu 20.04),
           #   but we would like to not mess with that, so we install a custom perl.
-          ./.github/scripts/install_perl
+          ./.github/scripts/install_perl.sh
           cd ..
           export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
           perl --version
