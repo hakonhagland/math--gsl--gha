@@ -18,6 +18,7 @@ jobs:
           export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
           perl --version
           uname -a
+          lsb_release -d
       - name: install gsl
         run: |
           ./.github/scripts/install_gsl.sh

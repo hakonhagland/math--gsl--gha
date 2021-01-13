@@ -2,8 +2,8 @@
 
 GSL_VERSION="2.6"
 GSL_MIRROR=http://mirrors.kernel.org/gnu/gsl
-GSL_INST_DIR="gsl"
-GSL_SRC_DIR="gsl-source"
+GSL_INST_DIR="$GITHUB_WORKSPACE"/"gsl"
+GSL_SRC_DIR="$GITHUB_WORKSPACE"/"gsl-source"
 TARBALL_GSL=gsl-"$GSL_VERSION"
 TARBALL="$TARBALL_GSL".tar.gz
 
