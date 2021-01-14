@@ -11,6 +11,9 @@ jobs:
         run: |
           echo "GSL_INST_DIR=${GITHUB_WORKSPACE}/gsl" >> $GITHUB_ENV
           echo "GSL_SRC_DIR=${GITHUB_WORKSPACE}/gsl-source" >> $GITHUB_ENV
+      - name: install packages
+        run: |
+          sudo apt-get install swig autoconf libtool
       - name: install perl
         run: |
           # NOTE: The following packages are already installed in "ubuntu-20.04" :
@@ -39,6 +42,7 @@ jobs:
           cpanm -n Net::SSLeay
           cpanm Alien::GSL
           cpanm Module::Build
+          mkdir xs
           perl Build.PL
           ./Build installdeps --cpan_client cpanm
           ./Build
