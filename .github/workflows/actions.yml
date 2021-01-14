@@ -3,22 +3,40 @@ on: [push, pull_request]
 jobs:
   build-dist:
     runs-on: ubuntu-20.04
+    env:
+      GSL_VERSION: 2.6
+      GSL_INST_DIR: "${{ env.GITHUB_WORKSPACE }}"/"gsl"
+      GSL_SRC_DIR: "${{ env.GITHUB_WORKSPACE }}"/"gsl-source"
     steps:
       - uses: actions/checkout@v2
       - name: install perl
         run: |
-          # NOTE: The following packages are already installed in "ubuntu-latest"
-          #sudo apt-get install -y build-essential curl g++ git wget libssl-dev libz-dev
+          # NOTE: The following packages are already installed in "ubuntu-20.04" :
+          #     build-essential curl g++ git wget libssl-dev libz-dev
           # NOTE: PWD=/home/runner/work/math--gsl--gha/math--gsl--gha
           # NOTE: perl version 5.26.1 is already installed (on Ubuntu 20.04),
           #   but we would like to not mess with that, so we install a custom perl.
           ./.github/scripts/install_perl.sh
       - name: show perl info
         run: |
+          perl --version
           export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
           perl --version
+          cpan -v
           uname -a
           lsb_release -d
       - name: install gsl
         run: |
           ./.github/scripts/install_gsl.sh
+      - name: install perl modules
+        run: |
+          export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
+          export LD_LIBRARY_PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/lib
+          export PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/bin:"$PATH"
+          cpan App::cpanminus
+          cpanm -n Net::SSLeay
+          cpanm Alien::GSL
+          cpanm Module::Build
+          perl Build.PL
+          ./Build installdeps --cpan_client cpanm
+          
