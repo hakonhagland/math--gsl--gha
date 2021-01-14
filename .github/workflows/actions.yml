@@ -11,13 +11,16 @@ jobs:
         run: |
           echo "GSL_INST_DIR=${GITHUB_WORKSPACE}/gsl" >> $GITHUB_ENV
           echo "GSL_SRC_DIR=${GITHUB_WORKSPACE}/gsl-source" >> $GITHUB_ENV
+          echo "TARBALL_GSL=gsl-$GSL_VERSION" >> $GITHUB_ENV
       - name: install packages
         run: |
           sudo apt-get install swig autoconf libtool
+          swig -version
       - name: install perl
         run: |
           # NOTE: The following packages are already installed in "ubuntu-20.04" :
           #     build-essential curl g++ git wget libssl-dev libz-dev
+          #       swig autoconf libtool
           # NOTE: PWD=/home/runner/work/math--gsl--gha/math--gsl--gha
           # NOTE: perl version 5.26.1 is already installed (on Ubuntu 20.04),
           #   but we would like to not mess with that, so we install a custom perl.
@@ -48,6 +51,7 @@ jobs:
           ./Build
           ./Build test
           ./Build dist
+          ls -l
           DISTNAME=$(ls -1 Math*.tar.gz)
           echo "MATH_GSL_DISTNAME=$DISTNAME" >> $GITHUB_ENV
       - name: Save dist as artifact

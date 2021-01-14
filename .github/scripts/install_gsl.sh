@@ -1,7 +1,6 @@
 #! /bin/bash
 
 GSL_MIRROR=http://mirrors.kernel.org/gnu/gsl
-TARBALL_GSL=gsl-"$GSL_VERSION"
 TARBALL="$TARBALL_GSL".tar.gz
 
 mkdir -p "$GSL_SRC_DIR"
