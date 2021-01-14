@@ -49,6 +49,8 @@ jobs:
           perl Build.PL
           ./Build installdeps --cpan_client cpanm
           ./Build
+          ls -l
+          ls -R Math
           ./Build test
           ./Build dist
           ls -l
