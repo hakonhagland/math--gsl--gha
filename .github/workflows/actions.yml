@@ -3,7 +3,7 @@ on: [push, pull_request]
 jobs:
   build-dist:
     runs-on: ubuntu-20.04
-    env:
+    env: |
       GSL_VERSION: 2.6
       GSL_INST_DIR: "${{ env.GITHUB_WORKSPACE }}"/"gsl"
       GSL_SRC_DIR: "${{ env.GITHUB_WORKSPACE }}"/"gsl-source"
