@@ -32,7 +32,6 @@ jobs:
         run: |
           ./.github/scripts/install_gsl.sh
       - name: install perl modules
-        env:
         run: |
           export LD_LIBRARY_PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/lib
           export PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/bin:"$PATH"
