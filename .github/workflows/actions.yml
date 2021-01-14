@@ -2,8 +2,6 @@ name: linux-build-dist
 on: [push, pull_request]
 env:
   GSL_VERSION: 2.6
-  GSL_INST_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl
-  GSL_SRC_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl-source"
 jobs:
   build-dist:
     runs-on: ubuntu-20.04
@@ -26,9 +24,15 @@ jobs:
           uname -a
           lsb_release -d
       - name: install gsl
+        env:
+          GSL_INST_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl
+          GSL_SRC_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl-source"
         run: |
           ./.github/scripts/install_gsl.sh
       - name: install perl modules
+        env:
+          GSL_INST_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl
+          GSL_SRC_DIR: ${{ env.GITHUB_WORKSPACE }}/gsl-source"
         run: |
           export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
           export LD_LIBRARY_PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/lib
@@ -39,4 +43,3 @@ jobs:
           cpanm Module::Build
           perl Build.PL
           ./Build installdeps --cpan_client cpanm
-          
