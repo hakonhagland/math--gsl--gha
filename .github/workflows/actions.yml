@@ -46,7 +46,7 @@ jobs:
           ./Build dist
           #DISTNAME=$(ls -1 Math*.tar.gz)
           DISTNAME=Math-GSL
-          echo "MATH_GSL_DISTNAME=$DISTNAME" >> $GITHUB_ENV
+          #echo "MATH_GSL_DISTNAME=$DISTNAME" >> $GITHUB_ENV
         - name: Save dist as artifact
           uses: actions/upload-artifact@v2
           with:
