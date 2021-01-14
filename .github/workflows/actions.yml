@@ -41,3 +41,14 @@ jobs:
           cpanm Module::Build
           perl Build.PL
           ./Build installdeps --cpan_client cpanm
+          ./Build
+          ./Build test
+          ./Build dist
+          DISTNAME=$(ls -1 Math*.tar.gz)
+          echo "MATH_GSL_DISTNAME=$DISTNAME" >> $GITHUB_ENV
+        - name: Save dist as artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: math_gsl_dist_name
+            path: ${{ env.MATH_GSL_DISTNAME }}
+            
