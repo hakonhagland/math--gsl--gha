@@ -50,7 +50,7 @@ jobs:
           ./Build installdeps --cpan_client cpanm
           ./Build
           ls -l
-          ls -R Math
+          ls -R lib
           ./Build test
           ./Build dist
           ls -l
