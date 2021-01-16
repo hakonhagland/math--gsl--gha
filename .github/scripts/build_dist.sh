@@ -1,6 +1,5 @@
 #! /bin/bash
 
-export LD_LIBRARY_PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/lib
 export PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/bin:"$PATH"
 cpan App::cpanminus
 cpanm -n Net::SSLeay

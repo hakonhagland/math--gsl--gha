@@ -1,17 +1,14 @@
 name: linux-build-dist
 on: [push, pull_request]
-env:
-  GSL_VERSION: 2.6
 jobs:
   build-dist:
     runs-on: ubuntu-20.04
+    env:
+      GSL_VERSION: 2.6
     steps:
       - uses: actions/checkout@v2
-      - name: set environment
-        run: |
-          echo "GSL_INST_DIR=${GITHUB_WORKSPACE}/gsl" >> $GITHUB_ENV
-          echo "GSL_SRC_DIR=${GITHUB_WORKSPACE}/gsl-source" >> $GITHUB_ENV
-          echo "TARBALL_GSL=gsl-$GSL_VERSION" >> $GITHUB_ENV
+      - name: set environment variables
+        run: ./.github/scrips/set_environment_variables.sh
       - name: install packages
         run: |
           sudo apt-get install swig autoconf libtool
@@ -47,6 +44,8 @@ jobs:
   install-dist-linux:
     runs-on: ubuntu-20.04
     needs: build-dist
+    env:
+      GSL_VERSION: 2.6
     steps:
       - name: Download dist
         uses: actions/download-artifact@v2
@@ -56,7 +55,16 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: math_gsl_dist_name
+      - name: set environment variables
+        run: ./.github/scrips/set_environment_variables.sh
+      - name: install gsl
+        run: ./.github/scripts/install_gsl.sh
       - name: Build module
         run: |
           DISTNAME=$(<math-gsl-dist-name.txt)
           tar zxvf $DISTNAME
+          DISTDIR=$(perl -pe 's/\.tar.gz$//' <<<"$DISTNAME")
+          cd $DISTDIR
+          perl Build.PL
+          ./Build
+          ./Build test
