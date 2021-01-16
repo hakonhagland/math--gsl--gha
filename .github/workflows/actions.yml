@@ -27,37 +27,36 @@ jobs:
           ./.github/scripts/install_perl.sh
       - name: show perl info
         run: |
-          perl --version
-          export PATH=$GITHUB_WORKSPACE/perl/bin:$PATH
-          echo "PATH=$PATH" >> $GITHUB_ENV
-          perl --version
-          cpan -v
-          uname -a
-          lsb_release -d
+          ./.github/scripts/show_perl_info.sh
       - name: install gsl
         run: |
           ./.github/scripts/install_gsl.sh
-      - name: install perl modules
+      - name: install perl modules and build dist
         run: |
-          export LD_LIBRARY_PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/lib
-          export PATH="$GSL_INST_DIR"/"$TARBALL_GSL"/bin:"$PATH"
-          cpan App::cpanminus
-          cpanm -n Net::SSLeay
-          cpanm Alien::GSL
-          cpanm Module::Build
-          mkdir xs
-          perl Build.PL
-          ./Build installdeps --cpan_client cpanm
-          ./Build
-          ls -l
-          ls -R blib
-          ./Build test
-          ./Build dist
-          ls -l
-          DISTNAME=$(ls -1 Math*.tar.gz)
-          echo "MATH_GSL_DISTNAME=$DISTNAME" >> $GITHUB_ENV
+          ./.github/scripts/build_dist.sh
       - name: Save dist as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: math_gsl_dist_name
+          name: math_gsl_dist
           path: ${{ env.MATH_GSL_DISTNAME }}
+      - name: Save name of dist as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: math_gsl_dist_name
+          path: math-gsl-dist-name.txt
+  install-dist-linux:
+    runs-on: ubuntu-20.04
+    needs: build-dist
+    steps:
+      - name: Download dist
+        uses: actions/download-artifact@v2
+        with:
+          name: math_gsl_dist
+      - name: Download dist name
+        uses: actions/download-artifact@v2
+        with:
+          name: math_gsl_dist_name
+      - name: Build module
+        run: |
+          DISTNAME=$(<math-gsl-dist-name.txt)
+          tar zxvf $DISTNAME
