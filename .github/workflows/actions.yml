@@ -8,7 +8,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: set environment variables
-        run: ./.github/scrips/set_environment_variables.sh
+        run: ./.github/scripts/set_environment_variables.sh
       - name: install packages
         run: |
           sudo apt-get install swig autoconf libtool
@@ -56,7 +56,7 @@ jobs:
         with:
           name: math_gsl_dist_name
       - name: set environment variables
-        run: ./.github/scrips/set_environment_variables.sh
+        run: ./.github/scripts/set_environment_variables.sh
       - name: install gsl
         run: ./.github/scripts/install_gsl.sh
       - name: Build module
