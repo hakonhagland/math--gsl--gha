@@ -71,5 +71,6 @@ jobs:
           echo "DISTDIR=$DISTDIR" >> $GITHUB_ENV
       - name: install perl modules and build and test
         run: |
+          BASEDIR=$PWD
           cd $DISTDIR
-          ./.github/scripts/build_and_test.sh
+          $BASEDIR/.github/scripts/build_and_test.sh
