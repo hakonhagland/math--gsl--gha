@@ -6,8 +6,8 @@
 
 if [[ $USE_PERL != "system" ]] ; then
     wget https://www.cpan.org/src/5.0/$USE_PERL
-    ARCHIVE_TYPE=$(perl -pe 's/^.*\.([^.]*)$/$1' <<<$USE_PERL)
-    TAR_NAME=$(perl -pe 's/^(.*)\.[^.]*$/$1' <<<$USE_PERL)
+    ARCHIVE_TYPE=$(perl -pe 's/^.*\.([^.]*)$/$1/' <<<$USE_PERL)
+    TAR_NAME=$(perl -pe 's/^(.*)\.[^.]*$/$1/' <<<$USE_PERL)
     if [[ $ARCHIVE_TYPE == 'gz' ]] ; then
         gunzip $USE_PERL
     elif [[ $ARCHIVE_TYPE == 'bz2' ]] ; then
