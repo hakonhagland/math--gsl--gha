@@ -60,8 +60,7 @@ jobs:
       - name: set environment variables
         run: ./.github/scripts/set_environment_variables.sh
       - name: install perl
-        run: |
-          ./.github/scripts/install_perl.sh
+        run: ./.github/scripts/install_perl.sh
       - name: install gsl
         run: ./.github/scripts/install_gsl.sh
       - name: extract dist
