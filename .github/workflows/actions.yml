@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-20.04
     env:
       GSL_VERSION: 2.6
-      #USE_PERL: perl-5.32.0.tar.gz
-      USE_PERL: system
+      USE_PERL: perl-5.32.0.tar.gz
+      #USE_PERL: system
     steps:
       - uses: actions/checkout@v2
       - name: set environment variables
@@ -45,7 +45,8 @@ jobs:
     needs: build-dist
     env:
       GSL_VERSION: 2.6
-      USE_PERL: system
+      USE_PERL: perl-5.32.0.tar.gz
+      #USE_PERL: system
     steps:
       - uses: actions/checkout@v2
       - name: Download dist
