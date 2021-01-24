@@ -138,7 +138,11 @@ jobs:
       - name: set environment variables
         run: ./.github/scripts/set_environment_variables.sh
       - name: install cpanm
-        run: cpan App::cpanminus
+        run: |
+          echo $MSYS
+          perl --version
+          uname -a
+          cpan App::cpanminus
       - name: install gsl
         run: ./.github/scripts/install_gsl.sh
       - name: extract dist
