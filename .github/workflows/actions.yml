@@ -143,8 +143,6 @@ jobs:
           perl --version
           uname -a
           cpan App::cpanminus
-      - name: install gsl
-        run: ./.github/scripts/install_gsl.sh
       - name: extract dist
         run: |
           DISTNAME=$(<math-gsl-dist-name.txt)
