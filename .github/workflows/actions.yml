@@ -139,9 +139,7 @@ jobs:
         run: ./.github/scripts/set_environment_variables.sh
       - name: install cpanm
         run: |
-          echo $MSYS
           perl --version
-          uname -a
           cpan App::cpanminus
       - name: extract dist
         run: |
